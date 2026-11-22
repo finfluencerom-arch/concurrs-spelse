@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Finfluence App</title>
+<title>Finfluence</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -313,6 +313,8 @@ let S;
 const KEY='finfluence-app-v2';
 try{S=JSON.parse(localStorage.getItem(KEY))||fresh()}catch(e){S=fresh()}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+// la fiecare deschidere pornim pe ecranul clientului, cu portofelul
+S.mode='client';S.tab='wallet';S.open=null;S.res=null;S.entry='';S.biztab='scan';
 
 const $=s=>document.querySelector(s);
 const main=$('#main');
@@ -510,7 +512,7 @@ function onboarding(){
     <div class="onb-hero">
       <div class="logo" style="width:56px;height:56px;border-radius:16px;position:relative">${I.cup}</div>
       <h1 style="font-size:36px;line-height:1;margin-top:18px;position:relative">Cardul tău la<br>Cafeneaua Central</h1>
-      <p style="opacity:.85;margin-top:10px;position:relative">A 10-a cafea e din partea casei. Fără aplicație de descărcat, fără cartonaș de pierdut.</p>
+      <p style="opacity:.85;margin-top:10px;position:relative">A 10-a cafea e din partea casei. Nimic de descărcat, niciun cartonaș de pierdut.</p>
     </div>
     <div class="onb-body">
       <h2 style="font-size:22px">Adaugă-ți numărul</h2>
@@ -611,7 +613,7 @@ function promo(){
     <textarea id="msg" aria-label="Mesajul ofertei">Ne e dor de tine! Vino săptămâna asta și primești punct dublu la orice cafea. ☕</textarea>
     <button class="btn btn-ink" style="margin-top:12px" onclick="sendPromo()">Trimite către <span id="cnt" style="margin:0 4px">37</span> clienți</button>
     ${S.sent.length?`<p class="section">Trimise</p><div class="list">${S.sent.map(s=>`<div class="li"><div class="mini-logo" style="--c:var(--accent-soft);--c-ink:var(--accent)">${I.bell}</div><div><div class="t" style="font-weight:500">${s.m}</div><div class="s">${s.n} clienți · ${s.t}</div></div></div>`).join('')}</div>`:''}
-    <p class="hint" style="margin-top:14px">Demo: mesajele nu pleacă nicăieri. În aplicația reală ajung ca notificare sau SMS.</p>
+    <p class="hint" style="margin-top:14px">Demo: mesajele nu pleacă nicăieri. În platforma reală ajung ca notificare sau SMS.</p>
   </div>`;
 }
 function sendPromo(){const m=$('#msg').value.trim();if(!m){toast('Scrie un mesaj înainte să trimiți');return}S.sent.unshift({m,n:$('#cnt').textContent,t:nowStr()});save();render();toast('Oferta a fost programată')}
